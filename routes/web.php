@@ -34,4 +34,9 @@ Route::middleware([
     Route::get('/pelanggan', function () {
         return view('pelanggan');
     })->name('pelanggan');
+
+    // Route samsat
+    Route::get('/samsat', function () {
+        return view('samsat');
+    })->name('samsat');
 });
