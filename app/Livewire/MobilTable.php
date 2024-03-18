@@ -85,7 +85,17 @@ final class MobilTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [];
+        return [
+            Filter::select('status', 'status')
+                ->dataSource(Mobil::all()->unique('status'))
+                ->optionLabel('status')
+                ->optionValue('status'),
+
+            Filter::select('merk', 'merk')
+                ->dataSource(Mobil::all()->unique('merk'))
+                ->optionLabel('merk')
+                ->optionValue('merk'),
+        ];
     }
 
     public function actions(Mobil $row): array
