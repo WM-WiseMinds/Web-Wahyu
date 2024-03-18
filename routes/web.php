@@ -26,4 +26,8 @@ Route::middleware([
     Route::get('/users', function () {
         return view('users');
     })->name('users');
+
+    Route::get('/mobil', function () {
+        return view('mobil');
+    })->name('mobil');
 });

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('samsats', function (Blueprint $table) {
+        Schema::create('samsat', function (Blueprint $table) {
             // Atribut id sebagai primary key
             $table->id();
             // Atribut mobil_id
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('samsats');
+        Schema::dropIfExists('samsat');
     }
 };

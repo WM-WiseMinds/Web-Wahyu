@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penyewaans', function (Blueprint $table) {
+        Schema::create('penyewaan', function (Blueprint $table) {
             // Atribut id sebagai primary key
             $table->id();
             // Atribut pelanggan_id
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penyewaans');
+        Schema::dropIfExists('penyewaan');
     }
 };
