@@ -12,7 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaksis', function (Blueprint $table) {
+            // Atribut id sebagai primary key
             $table->id();
+            // Atribut penyewaan_id
+            $table->foreignId('penyewaan_id')->constrained('penyewaan')->onDelete('cascade');
+            // Atribut jumlah_pembayaran
+            $table->integer('jumlah_pembayaran');
+            // Atribut keterangan
+            $table->text('keterangan');
+            // Atribut status
+            $table->string('status');
+            // Atribut bukti_pembayaran
+            $table->string('bukti_pembayaran', 255);
+            // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });
     }

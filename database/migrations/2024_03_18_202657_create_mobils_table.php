@@ -11,8 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mobils', function (Blueprint $table) {
+        Schema::create('mobil', function (Blueprint $table) {
+            // Attribut id sebagai primary key
             $table->id();
+            // Atribut nama
+            $table->string('nama');
+            // Atribut merk
+            $table->string('merk');
+            // Atribut warna
+            $table->string('warna');
+            // Atribut tahun
+            $table->string('tahun');
+            // Atribut plat_nomor
+            $table->string('plat_nomor');
+            // Atribut keterangan
+            $table->string('keterangan');
+            // Atribut harga
+            $table->integer('harga');
+            // Atribut status
+            $table->string('status');
+            // Atribut kapasitas_penumpang
+            $table->integer('kapasitas_penumpang');
+            // Atribut foto
+            $table->string('foto', 255);
+            // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });
     }
@@ -22,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mobils');
+        Schema::dropIfExists('mobil');
     }
 };

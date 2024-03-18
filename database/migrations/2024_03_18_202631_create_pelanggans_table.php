@@ -11,8 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pelanggans', function (Blueprint $table) {
+        Schema::create('pelanggan', function (Blueprint $table) {
+            // Attribut id sebagai primary key
             $table->id();
+            // Atribut user_id
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Atribut alamat
+            $table->string('alamat');
+            // Atribut no_hp
+            $table->string('no_hp');
+            // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });
     }
@@ -22,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pelanggans');
+        Schema::dropIfExists('pelanggan');
     }
 };

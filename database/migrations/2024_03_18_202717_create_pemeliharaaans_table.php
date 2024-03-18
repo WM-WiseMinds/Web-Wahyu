@@ -12,7 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemeliharaaans', function (Blueprint $table) {
+            // Atribut id sebagai primary key
             $table->id();
+            // Atribut mobil_id
+            $table->foreignId('mobil_id')->constrained('mobil')->onDelete('cascade');
+            // Atribut keterangan
+            $table->text('keterangan');
+            // Atribut biaya
+            $table->integer('biaya');
+            // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });
     }
