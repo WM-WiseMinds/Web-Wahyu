@@ -29,7 +29,7 @@ return new class extends Migration
             // Atribut harga
             $table->integer('harga');
             // Atribut status
-            $table->string('status');
+            $table->enum('status', ['Tersedia', 'Disewa', 'Rusak']);
             // Atribut kapasitas_penumpang
             $table->integer('kapasitas_penumpang');
             // Atribut foto
