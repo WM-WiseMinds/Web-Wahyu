@@ -30,4 +30,8 @@ Route::middleware([
     Route::get('/mobil', function () {
         return view('mobil');
     })->name('mobil');
+
+    Route::get('/pelanggan', function () {
+        return view('pelanggan');
+    })->name('pelanggan');
 });
