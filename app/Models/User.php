@@ -64,4 +64,34 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relasi ke tabel Penyewaan
+     *
+     * @return string
+     */
+    public function penyewaan()
+    {
+        return $this->hasMany(Penyewaan::class);
+    }
+
+    /**
+     * Relasi ke tabel Pelanggan
+     *
+     * @return string
+     */
+    public function pelanggan()
+    {
+        return $this->hasOne(Pelanggan::class);
+    }
+
+    /**
+     * Mengatur guard name
+     *
+     * @return string
+     */
+    protected function getDefaultGuardName(): string
+    {
+        return 'web';
+    }
 }

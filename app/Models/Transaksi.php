@@ -8,4 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     use HasFactory;
+
+    /**
+     * Nama tabel
+     *
+     * @var string
+     */
+    protected $table = 'transaksi';
+
+    /**
+     * Atribut yang dapat diisi
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'penyewaan_id',
+        'jumlah_pembayaran',
+        'keterangan',
+        'status',
+        'bukti_pembayaran',
+    ];
+
+    /**
+     * Relasi ke tabel Penyewaan
+     *
+     * @return void
+     */
+    public function penyewaan()
+    {
+        return $this->belongsTo(Penyewaan::class);
+    }
 }
