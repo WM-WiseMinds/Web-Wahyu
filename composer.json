@@ -15,6 +15,7 @@
         "masmerise/livewire-toaster": "^2.2",
         "openspout/openspout": "^4.23",
         "power-components/livewire-powergrid": "^5.4",
+        "spatie/laravel-permission": "^6.4",
         "wire-elements/modal": "^2.0",
         "wireui/wireui": "^1.19"
     },
