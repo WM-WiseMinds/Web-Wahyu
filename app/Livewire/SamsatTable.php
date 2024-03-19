@@ -62,7 +62,7 @@ final class SamsatTable extends PowerGridComponent
             ->add('nama', fn ($row) => $row->mobil->nama)
             ->add('mobil_id')
             ->add('keterangan')
-            ->add('biaya')
+            ->add('biaya', fn ($row) => 'Rp ' . number_format($row->biaya, 2, ',', '.'))
             ->add('created_at');
     }
 

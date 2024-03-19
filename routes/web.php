@@ -39,4 +39,9 @@ Route::middleware([
     Route::get('/samsat', function () {
         return view('samsat');
     })->name('samsat');
+
+    // Route pemeliharaan
+    Route::get('/pemeliharaan', function () {
+        return view('pemeliharaan');
+    })->name('pemeliharaan');
 });

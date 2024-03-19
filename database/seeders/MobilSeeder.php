@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mobil;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,8 @@ class MobilSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Mobil::factory()
+            ->count(25)
+            ->create();
     }
 }

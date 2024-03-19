@@ -33,6 +33,29 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </div>
+                <div class="mb-4">
+                    <label for="exampleFormControlInput3" class="block text-gray-700 text-sm font-bold mb-2">Bukti
+                        Pembayaran</label>
+
+                    <input type="file" id="bukti_pembayaran" wire:model.live="bukti_pembayaran"
+                        x-ref="bukti_pembayaran" class="file-input file-input-bordered file-input-sm w-full"
+                        x-on:change="
+                            photoName = $refs.bukti_pembayaran.files[0].name;
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                photoPreview = e.target.result;
+                            };
+                            reader.readAsDataURL($refs.bukti_pembayaran.files[0]);
+                        " />
+                    @error('bukti_pembayaran')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                    @if ($samsat->exists && $samsat->bukti_pembayaran)
+                        <x-button emerald class="mt-2">
+                            <a href="{{ $bukti_pembayaran_url }}" download>Download</a>
+                        </x-button>
+                    @endif
+                </div>
             </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

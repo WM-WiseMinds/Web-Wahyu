@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemeliharaaan', function (Blueprint $table) {
+        Schema::create('pemeliharaan', function (Blueprint $table) {
             // Atribut id sebagai primary key
             $table->id();
             // Atribut mobil_id
@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('keterangan');
             // Atribut biaya
             $table->integer('biaya');
+            // Atribut bukti_pembayaran
+            $table->string('bukti_pembayaran');
             // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });

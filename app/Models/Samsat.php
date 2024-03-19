@@ -25,6 +25,7 @@ class Samsat extends Model
         'mobil_id',
         'keterangan',
         'biaya',
+        'bukti_pembayaran'
     ];
 
     /**

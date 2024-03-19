@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('keterangan');
             // Atribut biaya
             $table->integer('biaya');
+            // Atribut bukti_pembayaran
+            $table->string('bukti_pembayaran');
             // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });

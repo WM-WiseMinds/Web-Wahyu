@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pemeliharaaan extends Model
+class Pemeliharaan extends Model
 {
     use HasFactory;
 
@@ -25,6 +25,7 @@ class Pemeliharaaan extends Model
         'mobil_id',
         'keterangan',
         'biaya',
+        'bukti_pembayaran'
     ];
 
     /**

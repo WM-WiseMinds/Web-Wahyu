@@ -25,7 +25,7 @@ return new class extends Migration
             // Atribut plat_nomor
             $table->string('plat_nomor');
             // Atribut keterangan
-            $table->string('keterangan');
+            $table->text('keterangan');
             // Atribut harga
             $table->integer('harga');
             // Atribut status

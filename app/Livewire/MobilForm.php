@@ -73,7 +73,7 @@ class MobilForm extends ModalComponent
         if ($this->foto instanceof UploadedFile) {
             $originalName = pathinfo($this->foto->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $this->foto->getClientOriginalExtension();
-            $fileName = time() . '.' . $originalName . '-'  . $extension;
+            $fileName = time() . '_' . $originalName . '.'  . $extension;
 
             if ($this->mobil->foto) {
                 Storage::delete(['public/foto-mobil/' . $this->mobil->foto]);
