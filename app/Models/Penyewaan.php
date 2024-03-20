@@ -68,4 +68,13 @@ class Penyewaan extends Model
     {
         return $this->hasMany(Transaksi::class);
     }
+
+    /**
+     * Mutator untuk mengatur tanggal pengembalian
+     *
+     * @return void
+     */ public function getReturnDateAttribute()
+    {
+        return $this->tanggal_penyewaan->addDays($this->durasi_sewa);
+    }
 }

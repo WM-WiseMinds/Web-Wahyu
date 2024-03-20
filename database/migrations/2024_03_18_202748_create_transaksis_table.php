@@ -23,7 +23,7 @@ return new class extends Migration
             // Atribut status
             $table->string('status');
             // Atribut bukti_pembayaran
-            $table->string('bukti_pembayaran', 255);
+            $table->string('bukti_pembayaran', 255)->nullable();
             // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });
