@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Transaksi;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
@@ -24,10 +26,11 @@ class TransaksiForm extends ModalComponent
         $this->updatingStatusOnly = $updatingStatusOnly;
         $this->transaksi = Transaksi::findOrNew($rowId);
         $this->id = $this->transaksi->id;
-        $this->bukti_pembayaran_url = $this->transaksi->bukti_pembayaran;
+        $this->status = $this->transaksi->status;
+        $this->bukti_pembayaran = $this->transaksi->bukti_pembayaran;
 
         if ($this->bukti_pembayaran) {
-            $this->bukti_pembayaran_url = Storage::disk('public')->url($this->bukti_pembayaran);
+            $this->bukti_pembayaran_url = Storage::disk('public')->url('foto-transaksi/' . $this->bukti_pembayaran);
         }
     }
 
@@ -62,6 +65,7 @@ class TransaksiForm extends ModalComponent
             $validatedData = $this->validate([
                 'bukti_pembayaran' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
+
             if ($this->bukti_pembayaran instanceof UploadedFile) {
                 $originalName = pathinfo($this->bukti_pembayaran->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $this->bukti_pembayaran->getClientOriginalExtension();
@@ -76,6 +80,8 @@ class TransaksiForm extends ModalComponent
             } else {
                 $validatedData['bukti_pembayaran'] = $this->transaksi->bukti_pembayaran;
             }
+
+            // dd($validatedData['bukti_pembayaran']);
 
             $this->transaksi->update([
                 'bukti_pembayaran' => $validatedData['bukti_pembayaran'],

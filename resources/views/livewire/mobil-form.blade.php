@@ -103,11 +103,6 @@
                     @error('foto')
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
-                    @if ($mobil->exists && $mobil->foto)
-                        <x-button emerald class="mt-2">
-                            <a href="{{ $foto_url }}" download>Download</a>
-                        </x-button>
-                    @endif
                 </div>
             </div>
         </div>

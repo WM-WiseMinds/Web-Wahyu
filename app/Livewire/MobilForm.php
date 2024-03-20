@@ -32,10 +32,6 @@ class MobilForm extends ModalComponent
         $this->status = $rowId ? $this->mobil->status : 'Tersedia';
         $this->kapasitas_penumpang = $this->mobil->kapasitas_penumpang;
         $this->foto = $this->mobil->foto;
-
-        if ($this->mobil->foto) {
-            $this->foto_url = Storage::disk('public')->url('foto-mobil/' . $this->mobil->foto);
-        }
     }
 
     public function render()

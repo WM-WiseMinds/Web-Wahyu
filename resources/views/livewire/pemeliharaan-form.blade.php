@@ -50,11 +50,6 @@
                     @error('bukti_pembayaran')
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
-                    @if ($pemeliharaan->exists && $pemeliharaan->bukti_pembayaran)
-                        <x-button emerald class="mt-2">
-                            <a href="{{ $bukti_pembayaran_url }}" download>Download</a>
-                        </x-button>
-                    @endif
                 </div>
             </div>
         </div>
