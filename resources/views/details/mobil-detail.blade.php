@@ -30,6 +30,10 @@
                 <td class="border px-4 py-2">{{ $row->keterangan }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Kapasitas Penumpang</td>
+                <td class="border px-4 py-2">{{ $row->kapasitas_penumpng }}</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Harga</td>
                 <td class="border px-4 py-2">Rp {{ number_format($row->harga, 2, ',', '.') }}</td>
             </tr>

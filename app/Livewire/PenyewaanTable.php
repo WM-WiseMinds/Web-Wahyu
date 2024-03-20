@@ -33,7 +33,7 @@ final class PenyewaanTable extends PowerGridComponent
                 ->showPerPage()
                 ->showRecordCount(),
             Detail::make()
-                ->view('details.mobil-detail')
+                ->view('details.penyewaan-detail')
                 ->showCollapseIcon(),
         ];
 

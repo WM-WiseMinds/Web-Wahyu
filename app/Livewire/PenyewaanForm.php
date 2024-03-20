@@ -81,26 +81,24 @@ class PenyewaanForm extends ModalComponent
             ]);
         } else {
             $hargaSewaMobil = $this->penyewaan->mobil->harga;
+            $durasiSelisih = $newDurasiSewa - $oldDurasiSewa;
+            $jumlahPembayaran = $durasiSelisih * $hargaSewaMobil;
 
-            if ($newDurasiSewa > $oldDurasiSewa) {
-                $durasiSelisih = $newDurasiSewa - $oldDurasiSewa;
-                $jumlahPembayaran = $durasiSelisih * $hargaSewaMobil;
+            $transaksiPenyewaan = Transaksi::where('penyewaan_id', $this->penyewaan->id)
+                ->where('status', 'Belum Dibayar')
+                ->where('keterangan', 'like', 'Penyewaan%')
+                ->first();
 
-                Transaksi::create([
-                    'penyewaan_id' => $this->penyewaan->id,
-                    'keterangan' => 'Penambahan Durasi (' . $durasiSelisih . ' hari)',
-                    'jumlah_pembayaran' => $jumlahPembayaran,
-                    'status' => 'Belum Dibayar',
-                ]);
-            } elseif ($newDurasiSewa < $oldDurasiSewa) {
-                $durasiSelisih = $oldDurasiSewa - $newDurasiSewa;
-                $jumlahPenguranganPembayaran = $durasiSelisih * $hargaSewaMobil;
+            if ($transaksiPenyewaan) {
+                $jumlahPembayaranBaru = $transaksiPenyewaan->jumlah_pembayaran + $jumlahPembayaran;
 
-                $transaksiTerakhir = Transaksi::where('penyewaan_id', $this->penyewaan->id)->latest()->first();
-                if ($transaksiTerakhir) {
-                    $transaksiTerakhir->update([
-                        'jumlah_pembayaran' => $transaksiTerakhir->jumlah_pembayaran - $jumlahPenguranganPembayaran,
+                if ($jumlahPembayaranBaru > 0) {
+                    $transaksiPenyewaan->update([
+                        'jumlah_pembayaran' => $jumlahPembayaranBaru,
+                        'keterangan' => 'Penyewaan (' . $this->penyewaan->tanggal_penyewaan . ') - Durasi: ' . $newDurasiSewa . ' hari',
                     ]);
+                } else {
+                    $transaksiPenyewaan->delete();
                 }
             }
         }
