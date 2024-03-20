@@ -44,4 +44,8 @@ Route::middleware([
     Route::get('/pemeliharaan', function () {
         return view('pemeliharaan');
     })->name('pemeliharaan');
+
+    Route::get('/penyewaan', function () {
+        return view('penyewaan');
+    })->name('penyewaan');
 });

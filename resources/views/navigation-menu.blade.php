@@ -117,7 +117,17 @@
                         <span class="ml-4">Pemeliharaan</span>
                     </x-nav-link>
                 </li>
-
+                <li
+                    class="relative px-6 py-3 {{ request()->routeIs('penyewaan') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                    <x-nav-link href="{{ route('penyewaan') }}" :active="request()->routeIs('penyewaan')"
+                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('penyewaan') ? 'text-green-500' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path
+                                d="M5.625 3.75a2.625 2.625 0 1 0 0 5.25h12.75a2.625 2.625 0 0 0 0-5.25H5.625ZM3.75 11.25a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5H3.75ZM3 15.75a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75ZM3.75 18.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5H3.75Z" />
+                        </svg>
+                        <span class="ml-4">Penyewaan</span>
+                    </x-nav-link>
+                </li>
             </ul>
         </div>
     </aside>
