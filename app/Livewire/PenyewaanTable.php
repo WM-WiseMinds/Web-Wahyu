@@ -5,8 +5,10 @@ namespace App\Livewire;
 use App\Models\Penyewaan;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -19,20 +21,29 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class PenyewaanTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
         $this->showCheckBox();
 
-        return [
-            Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+        $setUp = [
             Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+            Detail::make()
+                ->view('details.mobil-detail')
+                ->showCollapseIcon(),
         ];
+
+        if (auth()->user()->can('export')) {
+            $setUp[] = Exportable::make('penyewaan')
+                ->striped()
+                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV);
+        }
+
+        return $setUp;
     }
 
     public function datasource(): Builder
@@ -104,6 +115,7 @@ final class PenyewaanTable extends PowerGridComponent
     public function actions(Penyewaan $row): array
     {
 
+        $actions = [];
         if (auth()->user()->can('update')) {
             $actions[] =
                 Button::add('edit')
