@@ -68,18 +68,18 @@ final class PemeliharaanTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::add('id')
+            Column::make('id', 'id')
                 ->searchable()
                 ->sortable(),
 
-            Column::add('nama_mobil')
+            Column::make('Nama Mobil', 'nama_mobil')
                 ->searchable(),
 
-            Column::add('keterangan')
+            Column::make('Keterangan', 'keterangan')
                 ->searchable()
                 ->sortable(),
 
-            Column::add('biaya')
+            Column::make('Biaya', 'biaya')
                 ->searchable()
                 ->sortable(),
 

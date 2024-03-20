@@ -44,7 +44,7 @@ class SamsatForm extends ModalComponent
             'mobil_id' => 'required|exists:mobil,id',
             'keterangan' => 'required',
             'biaya' => 'required',
-            'bukti_pembayaran' => $this->samsat instanceof UploadedFile ? 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048' : ''
+            'bukti_pembayaran' => $this->bukti_pembayaran instanceof UploadedFile ? 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048' : ''
         ];
     }
 
