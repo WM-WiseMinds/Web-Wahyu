@@ -16,13 +16,12 @@ class PenyewaanForm extends ModalComponent
 
     public Penyewaan $penyewaan;
     public $id, $pelanggan_id, $mobil_id, $user_id, $username, $tanggal_penyewaan, $durasi_sewa, $mobils, $pelanggans;
-    public $updateDurasi = false;
     public $hargaSewaMobil = 0;
     public $jumlahPembayaran = 0;
 
-    public function mount($rowId = null, $updateDurasi = false)
+    public function mount($rowId = null)
     {
-        $this->mobils = Mobil::query()->where('status', 'Tersedia')->get();
+        $this->mobils = $rowId ? Mobil::all() : Mobil::query()->where('status', 'Tersedia')->get();
         $this->pelanggans = Pelanggan::all();
         $this->penyewaan = Penyewaan::findOrNew($rowId);
         $this->id = $this->penyewaan->id;
@@ -33,25 +32,14 @@ class PenyewaanForm extends ModalComponent
         $this->tanggal_penyewaan = $this->penyewaan->tanggal_penyewaan;
         $this->durasi_sewa = $this->penyewaan->durasi_sewa;
 
-        $this->updateDurasi = $updateDurasi;
-        if ($updateDurasi) {
-            $this->durasi_sewa = $this->penyewaan->durasi_sewa;
+        if ($this->mobil_id) {
+            $this->getHargaSewa($this->mobil_id);
         }
     }
 
     public function render()
     {
         return view('livewire.penyewaan-form');
-    }
-
-    public function switchToUpdateRentDuration()
-    {
-        $this->updateDurasi = true;
-    }
-
-    public function switchToCreateOrUpdateMode()
-    {
-        $this->updateDurasi = false;
     }
 
     public function rules()
@@ -74,12 +62,25 @@ class PenyewaanForm extends ModalComponent
     {
         $validatedData = $this->validate();
 
-        if ($this->updateDurasi) {
-            $oldDurasiSewa = $this->penyewaan->durasi_sewa;
-            $newDurasiSewa = $validatedData['durasi_sewa'];
-            $hargaSewaMobil = $this->penyewaan->mobil->harga;
+        $oldPenyewaan = $this->penyewaan->exists ? $this->penyewaan : null;
+        $oldDurasiSewa = $oldPenyewaan ? $oldPenyewaan->durasi_sewa : 0;
+        $newDurasiSewa = $validatedData['durasi_sewa'];
 
-            $this->penyewaan->update(['durasi_sewa' => $newDurasiSewa]);
+        $this->penyewaan = Penyewaan::updateOrCreate(['id' => $this->id], $validatedData);
+
+        if ($this->penyewaan->wasRecentlyCreated) {
+            $this->penyewaan->mobil->update(['status' => 'Disewa']);
+
+            $jumlahPembayaran = $this->penyewaan->durasi_sewa * $this->penyewaan->mobil->harga;
+
+            Transaksi::create([
+                'penyewaan_id' => $this->penyewaan->id,
+                'keterangan' => 'Penyewaan (' . $this->penyewaan->tanggal_penyewaan . ')',
+                'jumlah_pembayaran' => $jumlahPembayaran,
+                'status' => 'Belum Dibayar'
+            ]);
+        } else {
+            $hargaSewaMobil = $this->penyewaan->mobil->harga;
 
             if ($newDurasiSewa > $oldDurasiSewa) {
                 $durasiSelisih = $newDurasiSewa - $oldDurasiSewa;
@@ -91,7 +92,7 @@ class PenyewaanForm extends ModalComponent
                     'jumlah_pembayaran' => $jumlahPembayaran,
                     'status' => 'Belum Dibayar',
                 ]);
-            } else if ($newDurasiSewa < $oldDurasiSewa) {
+            } elseif ($newDurasiSewa < $oldDurasiSewa) {
                 $durasiSelisih = $oldDurasiSewa - $newDurasiSewa;
                 $jumlahPenguranganPembayaran = $durasiSelisih * $hargaSewaMobil;
 
@@ -101,21 +102,6 @@ class PenyewaanForm extends ModalComponent
                         'jumlah_pembayaran' => $transaksiTerakhir->jumlah_pembayaran - $jumlahPenguranganPembayaran,
                     ]);
                 }
-            }
-        } else {
-            $this->penyewaan = Penyewaan::updateOrCreate(['id' => $this->id], $validatedData);
-
-            if ($this->penyewaan->wasRecentlyCreated) {
-                $this->penyewaan->mobil->update(['status' => 'Disewa']);
-
-                $jumlahPembayaran = $this->penyewaan->durasi_sewa * $this->penyewaan->mobil->harga;
-
-                Transaksi::create([
-                    'penyewaan_id' => $this->penyewaan->id,
-                    'keterangan' => 'Penyewaan (' . $this->penyewaan->tanggal_penyewaan . ')',
-                    'jumlah_pembayaran' => $jumlahPembayaran,
-                    'status' => 'Belum Dibayar'
-                ]);
             }
         }
 
