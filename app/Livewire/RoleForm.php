@@ -58,6 +58,8 @@ class RoleForm extends ModalComponent
             RoleTable::class => 'roleUpdated',
         ]);
 
+        $this->dispatch('roles-updated');
+
         $this->success($this->role->wasRecentlyCreated ? 'Role berhasil dibuat' : 'Role berhasil diupdate');
 
         $this->resetForm();
