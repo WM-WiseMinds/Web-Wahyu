@@ -48,4 +48,8 @@ Route::middleware([
     Route::get('/penyewaan', function () {
         return view('penyewaan');
     })->name('penyewaan');
+
+    Route::get('/transaksi', function () {
+        return view('transaksi');
+    })->name('transaksi');
 });
