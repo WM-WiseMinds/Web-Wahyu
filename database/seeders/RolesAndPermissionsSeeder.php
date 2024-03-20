@@ -23,6 +23,8 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'update']);
         Permission::create(['name' => 'delete']);
         Permission::create(['name' => 'export']);
+        Permission::create(['name' => 'payment']);
+        Permission::create(['name' => 'verifikasi']);
         Permission::create(['name' => 'konfirmasi']);
 
         $role = Role::create(['name' => 'Pelanggan'])

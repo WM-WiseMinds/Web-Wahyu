@@ -21,7 +21,7 @@ return new class extends Migration
             // Atribut keterangan
             $table->text('keterangan');
             // Atribut status
-            $table->string('status');
+            $table->enum('status', ['Belum Dibayar', 'Menunggu Verifikasi', 'Dikonfirmasi', 'Ditolak']);
             // Atribut bukti_pembayaran
             $table->string('bukti_pembayaran', 255)->nullable();
             // Atribut timestamp created_at dan updated_at
