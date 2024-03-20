@@ -7,7 +7,7 @@
                         <label for="exampleFormControlInput1" class="block text-gray-700 text-sm font-bold mb-2">Durasi
                             Sewa (Hari)</label>
                         <input type="number" class="input input-bordered w-full" id="exampleFormControlInput1"
-                            placeholder="Enter Durasi Sewa" wire:model="durasi_sewa">
+                            placeholder="Enter Durasi Sewa" wire:model="durasi_sewa" wire:change='getJumlahPembayaran'>
                         @error('durasi_sewa')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
@@ -18,7 +18,7 @@
                         <label for="exampleFormControlInput4"
                             class="block text-gray-700 text-sm font-bold mb-2">Mobil</label>
                         <select wire:model="mobil_id" class="select select-bordered w-full"
-                            id="exampleFormControlInput4">
+                            wire:change='getHargaSewa($event.target.value)' id="exampleFormControlInput4">
                             <option value="">Pilih Mobil</option>
                             @foreach ($mobils as $mobil)
                                 <option value="{{ $mobil->id }}">
@@ -54,6 +54,22 @@
                         @enderror
                     </div>
                 @endif
+                <div class="mb-4">
+                    <label for="hargaSewaMobil" class="block text-gray-700 text-sm font-bold mb-2">Harga Sewa
+                        Perhari</label>
+                    <input type="text" class="input input-bordered w-full" id="hargaSewaMobil"
+                        placeholder="Harga Sewa Perhari" wire:model="hargaSewaMobil" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label for="jumlahPembayaran" class="block text-gray-700 text-sm font-bold mb-2">Jumlah
+                        Pembayaran</label>
+                    <input type="text" class="input input-bordered w-full" id="jumlahPembayaran"
+                        placeholder="Jumlah Pembayaran" wire:model="jumlahPembayaran" readonly>
+                    @error('jumlahPembayaran')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

@@ -17,6 +17,8 @@ class PenyewaanForm extends ModalComponent
     public Penyewaan $penyewaan;
     public $id, $pelanggan_id, $mobil_id, $user_id, $username, $tanggal_penyewaan, $durasi_sewa, $mobils, $pelanggans;
     public $updateDurasi = false;
+    public $hargaSewaMobil = 0;
+    public $jumlahPembayaran = 0;
 
     public function mount($rowId = null, $updateDurasi = false)
     {
@@ -124,5 +126,22 @@ class PenyewaanForm extends ModalComponent
         $this->success($this->penyewaan->wasRecentlyCreated ? 'Penyewaan berhasil disimpan' : 'Penyewaan berhasil diubah');
 
         $this->resetForm();
+    }
+
+    public function getHargaSewa($mobilId)
+    {
+        $mobil = Mobil::find($mobilId);
+        $this->hargaSewaMobil = $mobil ? $mobil->harga : null;
+        $this->updateJumlahPembayaran();
+    }
+
+    public function getJumlahPembayaran()
+    {
+        $this->updateJumlahPembayaran();
+    }
+
+    private function updateJumlahPembayaran()
+    {
+        $this->jumlahPembayaran = $this->hargaSewaMobil * $this->durasi_sewa;
     }
 }

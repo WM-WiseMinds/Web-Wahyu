@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,8 @@ class Penyewaan extends Model
         'tanggal_penyewaan',
         'durasi_sewa',
     ];
+
+    protected $dates = ['tanggal_penyewaan'];
 
     /**
      * Relasi ke tabel Mobil
@@ -73,8 +76,9 @@ class Penyewaan extends Model
      * Mutator untuk mengatur tanggal pengembalian
      *
      * @return void
-     */ public function getReturnDateAttribute()
+     */
+    public function getReturnDateAttribute()
     {
-        return $this->tanggal_penyewaan->addDays($this->durasi_sewa);
+        return Carbon::parse($this->tanggal_penyewaan)->addDays((int) $this->durasi_sewa);
     }
 }

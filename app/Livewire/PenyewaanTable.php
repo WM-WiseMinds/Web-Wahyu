@@ -56,12 +56,12 @@ final class PenyewaanTable extends PowerGridComponent
             ->add('pelanggan_id')
             ->add('nama_pelanggan', fn (Penyewaan $model) => $model->pelanggan->user->name)
             ->add('mobil_id')
-            ->add('nama_mobil', fn (Penyewaan $model) => $model->mobil->nama_mobil)
+            ->add('nama_mobil', fn (Penyewaan $model) => $model->mobil->nama)
             ->add('user_id')
             ->add('nama_user', fn (Penyewaan $model) => $model->user->name)
             ->add('tanggal_penyewaan_formatted', fn (Penyewaan $model) => Carbon::parse($model->tanggal_penyewaan)->format('d/m/Y'))
             ->add('durasi_sewa')
-            ->add('return_date', fn (Penyewaan $model) => $model->return_date->format('d/m/Y'))
+            ->add('return_date_formatted', fn (Penyewaan $model) => $model->return_date->format('d/m/Y'))
             ->add('created_at');
     }
 
@@ -74,7 +74,7 @@ final class PenyewaanTable extends PowerGridComponent
             Column::make('Tanggal Penyewaan', 'tanggal_penyewaan_formatted', 'tanggal_penyewaan')
                 ->sortable(),
 
-            Column::make('Tanggal Pengembalian', 'return_date')
+            Column::make('Tanggal Pengembalian', 'return_date_formatted')
                 ->sortable()
                 ->searchable(),
 
