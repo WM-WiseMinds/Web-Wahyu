@@ -38,4 +38,14 @@ class Transaksi extends Model
     {
         return $this->belongsTo(Penyewaan::class);
     }
+
+    /**
+     * Relasi ke tabel HistoryTransaksi
+     *
+     * @return void
+     */
+    public function historyTransaksi()
+    {
+        return $this->hasMany(HistoryTransaksi::class);
+    }
 }

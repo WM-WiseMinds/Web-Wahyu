@@ -73,6 +73,16 @@ class Penyewaan extends Model
     }
 
     /**
+     * Relasi ke tabel PerubahanPenyewaan
+     *
+     * @return void
+     */
+    public function perubahanPenyewaan()
+    {
+        return $this->hasMany(PerubahanPenyewaan::class);
+    }
+
+    /**
      * Mutator untuk mengatur tanggal pengembalian
      *
      * @return void

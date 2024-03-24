@@ -85,11 +85,20 @@ class PenyewaanForm extends ModalComponent
             $jumlahPembayaran = $durasiSelisih * $hargaSewaMobil;
 
             $transaksiPenyewaan = Transaksi::where('penyewaan_id', $this->penyewaan->id)
-                ->where('status', 'Belum Dibayar')
                 ->where('keterangan', 'like', 'Penyewaan%')
+                ->orderBy('created_at', 'desc')
                 ->first();
 
-            if ($transaksiPenyewaan) {
+            if ($transaksiPenyewaan->status === 'Dikonfirmasi') {
+                // Jika status transaksi adalah "Dikonfirmasi", buat transaksi baru
+                Transaksi::create([
+                    'penyewaan_id' => $this->penyewaan->id,
+                    'keterangan' => 'Perubahan Durasi Penyewaan (' . $this->penyewaan->tanggal_penyewaan . ')',
+                    'jumlah_pembayaran' => $jumlahPembayaran,
+                    'status' => 'Belum Dibayar'
+                ]);
+            } else {
+                // Jika status transaksi bukan "Dikonfirmasi", perbarui transaksi yang ada
                 $jumlahPembayaranBaru = $transaksiPenyewaan->jumlah_pembayaran + $jumlahPembayaran;
 
                 if ($jumlahPembayaranBaru > 0) {
@@ -98,6 +107,22 @@ class PenyewaanForm extends ModalComponent
                         'keterangan' => 'Penyewaan (' . $this->penyewaan->tanggal_penyewaan . ') - Durasi: ' . $newDurasiSewa . ' hari',
                     ]);
                 } else {
+                    // Jika pengurangan durasi melebihi penambahan sebelumnya, perbarui transaksi sebelumnya dan hapus transaksi saat ini
+                    $transaksiSebelumnya = Transaksi::where('penyewaan_id', $this->penyewaan->id)
+                        ->where('keterangan', 'like', 'Penyewaan%')
+                        ->orderBy('created_at', 'desc')
+                        ->skip(1)
+                        ->first();
+
+                    if ($transaksiSebelumnya) {
+                        $jumlahPembayaranSebelumnya = $transaksiSebelumnya->jumlah_pembayaran + $jumlahPembayaranBaru;
+
+                        $transaksiSebelumnya->update([
+                            'jumlah_pembayaran' => $jumlahPembayaranSebelumnya,
+                            'keterangan' => 'Penyewaan (' . $this->penyewaan->tanggal_penyewaan . ') - Durasi: ' . $newDurasiSewa . ' hari',
+                        ]);
+                    }
+
                     $transaksiPenyewaan->delete();
                 }
             }
