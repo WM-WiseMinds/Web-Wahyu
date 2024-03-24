@@ -18,6 +18,10 @@
                 <td class="border px-4 py-2">{{ $row->mobil->plat_nomor }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Durasi Penyewaan</td>
+                <td class="border px-4 py-2">{{ $row->durasi_sewa }} Hari</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Tanggal Penyewaan</td>
                 <td class="border px-4 py-2">{{ $row->tanggal_penyewaan_formatted }}</td>
             </tr>

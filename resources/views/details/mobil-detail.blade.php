@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Kapasitas Penumpang</td>
-                <td class="border px-4 py-2">{{ $row->kapasitas_penumpng }}</td>
+                <td class="border px-4 py-2">{{ $row->kapasitas_penumpang }}</td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Harga</td>
