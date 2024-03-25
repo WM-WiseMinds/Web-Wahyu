@@ -2,13 +2,15 @@
 
 namespace App\Livewire;
 
-use App\Models\Transaksi;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
-use LivewireUI\Modal\ModalComponent;
+use App\Models\Transaksi;
+use App\Livewire\TransaksiTable;
+use App\Models\HistoryTransaksi;
 use Masmerise\Toaster\Toastable;
+use Illuminate\Http\UploadedFile;
+use LivewireUI\Modal\ModalComponent;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class TransaksiForm extends ModalComponent
 {
@@ -16,14 +18,15 @@ class TransaksiForm extends ModalComponent
     use WithFileUploads;
 
     public Transaksi $transaksi;
-    public $id, $status, $bukti_pembayaran, $bukti_pembayaran_url;
+    public $id, $status, $bukti_pembayaran, $bukti_pembayaran_url, $history_transaksi_id;
     public $updatingStatusOnly = false;
     public $updatingPembayaranOnly = false;
 
-    public function mount($rowId = null, $updatingStatusOnly = false, $updatingPembayaranOnly = false)
+    public function mount($rowId = null, $updatingStatusOnly = false, $updatingPembayaranOnly = false, $historyId = null)
     {
         $this->updatingPembayaranOnly = $updatingPembayaranOnly;
         $this->updatingStatusOnly = $updatingStatusOnly;
+        $this->history_transaksi_id = $historyId;
         $this->transaksi = Transaksi::findOrNew($rowId);
         $this->id = $this->transaksi->id;
         $this->status = $this->transaksi->status;
@@ -32,6 +35,8 @@ class TransaksiForm extends ModalComponent
         if ($this->bukti_pembayaran) {
             $this->bukti_pembayaran_url = Storage::disk('public')->url('foto-transaksi/' . $this->bukti_pembayaran);
         }
+
+        dump($this->history_transaksi_id);
     }
 
     public function switchToStatusOnlyMode()
@@ -70,33 +75,34 @@ class TransaksiForm extends ModalComponent
                 $originalName = pathinfo($this->bukti_pembayaran->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $this->bukti_pembayaran->getClientOriginalExtension();
                 $fileName = time() . '-' . $originalName . '.' . $extension;
-
                 if ($this->transaksi->bukti_pembayaran) {
                     Storage::disk('public')->delete('foto-transaksi/' . $this->transaksi->bukti_pembayaran);
                 }
-
                 $this->bukti_pembayaran->storeAs('public/foto-transaksi', $fileName);
                 $validatedData['bukti_pembayaran'] = $fileName;
             } else {
                 $validatedData['bukti_pembayaran'] = $this->transaksi->bukti_pembayaran;
             }
 
-            // dd($validatedData['bukti_pembayaran']);
-
-            $this->transaksi->update([
+            // Update bukti_pembayaran dan status pada history_transaksi yang spesifik
+            HistoryTransaksi::where('id', $this->history_transaksi_id)->update([
                 'bukti_pembayaran' => $validatedData['bukti_pembayaran'],
                 'status' => 'Menunggu Verifikasi',
             ]);
         } else if ($this->updatingStatusOnly) {
             $validatedData = $this->validate(['status' => 'required']);
-            $this->transaksi->update($validatedData);
+
+            // Update status pada history_transaksi yang spesifik
+            HistoryTransaksi::where('id', $this->history_transaksi_id)->update([
+                'status' => $validatedData['status'],
+            ]);
         }
 
         $this->closeModalWithEvents([
             TransaksiTable::class => 'transaksiUpdated',
         ]);
 
-        $this->success($this->transaksi->wasRecentlyCreated ? 'Transaksi berhasil disimpan' : 'Transaksi berhasil diubah');
+        $this->success('History transaksi berhasil diperbarui');
 
         $this->resetForm();
     }

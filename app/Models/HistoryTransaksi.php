@@ -19,6 +19,7 @@ class HistoryTransaksi extends Model
         'durasi_baru',
         'perbedaan_harga',
         'bukti_pembayaran',
+        'status'
     ];
 
     public function transaksi()

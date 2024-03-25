@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('durasi_baru');
             $table->integer('perbedaan_harga');
             $table->string('bukti_pembayaran')->nullable();
+            $table->enum('status', ['Belum Dibayar', 'Menunggu Verifikasi', 'Dikonfirmasi', 'Ditolak'])->default('Belum Dibayar');
             $table->timestamps();
         });
     }

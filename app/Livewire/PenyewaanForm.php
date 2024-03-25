@@ -79,7 +79,6 @@ class PenyewaanForm extends ModalComponent
                 'penyewaan_id' => $this->penyewaan->id,
                 'keterangan' => 'Penyewaan (' . $this->penyewaan->tanggal_penyewaan . ')',
                 'jumlah_pembayaran' => $jumlahPembayaran,
-                'status' => 'Belum Dibayar'
             ]);
 
             HistoryTransaksi::create([
@@ -88,7 +87,7 @@ class PenyewaanForm extends ModalComponent
                 'tanggal_selesai' => date('Y-m-d', strtotime($this->penyewaan->tanggal_penyewaan . ' +' . $this->penyewaan->durasi_sewa . ' days')),
                 'durasi_sebelumnya' => 0,
                 'durasi_baru' => $this->penyewaan->durasi_sewa,
-                'perbedaan_harga' => $jumlahPembayaran,
+                'perbedaan_harga' => $jumlahPembayaran, 'status' => 'Belum Dibayar'
             ]);
         } else {
             $hargaSewaMobil = $this->penyewaan->mobil->harga;
@@ -112,7 +111,7 @@ class PenyewaanForm extends ModalComponent
                 'durasi_sebelumnya' => $oldDurasiSewa,
                 'durasi_baru' => $newDurasiSewa,
                 'perbedaan_harga' => $jumlahPembayaran,
-                // 'bukti_pembayaran' => $this->bukti_pembayaran ? $this->bukti_pembayaran->store('bukti_pembayaran', 'public') : null,
+                'status' => 'Belum Dibayar'
             ]);
         }
 
