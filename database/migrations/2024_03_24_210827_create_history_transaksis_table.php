@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('durasi_sebelumnya');
             $table->integer('durasi_baru');
             $table->integer('perbedaan_harga');
+            $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
         });
     }

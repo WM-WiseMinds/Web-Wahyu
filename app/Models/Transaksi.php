@@ -26,7 +26,6 @@ class Transaksi extends Model
         'jumlah_pembayaran',
         'keterangan',
         'status',
-        'bukti_pembayaran',
     ];
 
     /**
