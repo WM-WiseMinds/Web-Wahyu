@@ -62,6 +62,7 @@ final class TransaksiTable extends PowerGridComponent
             ->add('id')
             ->add('penyewaan_id')
             ->add('nama_pelanggan', fn ($row) => $row->penyewaan->pelanggan->user->name)
+            ->add('nama_mobil', fn ($row) => $row->penyewaan->mobil->nama)
             ->add('jumlah_pembayaran', fn ($row) => 'Rp ' . number_format($row->jumlah_pembayaran, 2, ',', '.'))
             ->add('keterangan')
             ->add('bukti_pembayaran')
@@ -72,7 +73,8 @@ final class TransaksiTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Nama Pelanggan', 'nama_pelanggan'),
+            Column::make('Nama Pelanggan', 'nama_pelanggan')->searchable(),
+            Column::make('Nama Mobil', 'nama_mobil')->searchable(),
             Column::make('Jumlah pembayaran', 'jumlah_pembayaran')
                 ->sortable()
                 ->searchable(),
