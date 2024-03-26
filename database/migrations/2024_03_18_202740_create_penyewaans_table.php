@@ -24,6 +24,8 @@ return new class extends Migration
             $table->date('tanggal_penyewaan');
             // Atribut durasi sewa
             $table->integer('durasi_sewa');
+            // Atribut kembali dalam boolean
+            $table->boolean('kembali')->default(false);
             // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });

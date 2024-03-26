@@ -59,13 +59,28 @@
                 <div class="mb-4">
                     <label for="jumlahPembayaran" class="block text-gray-700 text-sm font-bold mb-2">Jumlah
                         Pembayaran</label>
-                    <input type="text" class="input input-bordered w-full" id="jumlahPembayaran"
+                    <input type="text" class="input input-bordered w-full mr-3" id="jumlahPembayaran"
                         placeholder="Jumlah Pembayaran" wire:model="jumlahPembayaran" readonly>
                     @error('jumlahPembayaran')
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
+            @if ($id)
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Kembali</label>
+                    <div class="flex items-center">
+                        <input type="radio" id="kembali_yes" value="1" wire:model="kembali">
+                        <label for="kembali_yes" class="mr-4">Ya</label>
+
+                        <input type="radio" id="kembali_no" value="0" wire:model="kembali" checked>
+                        <label for="kembali_no">Tidak</label>
+                    </div>
+                    @error('kembali')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+            @endif
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">

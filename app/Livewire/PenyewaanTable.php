@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Penyewaan;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
@@ -73,6 +74,7 @@ final class PenyewaanTable extends PowerGridComponent
             ->add('tanggal_penyewaan_formatted', fn (Penyewaan $model) => Carbon::parse($model->tanggal_penyewaan)->format('d/m/Y'))
             ->add('durasi_sewa')
             ->add('return_date_formatted', fn (Penyewaan $model) => $model->return_date->format('d/m/Y'))
+            ->add('status_kembali', fn (Penyewaan $model) => $model->kembali ? 'Sudah Kembali' : 'Belum Kembali')
             ->add('created_at');
     }
 
@@ -89,9 +91,13 @@ final class PenyewaanTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Created at', 'created_at')
+            Column::make('Status Kembali', 'status_kembali')
                 ->sortable()
                 ->searchable(),
+
+            // Column::make('Created at', 'created_at')
+            //     ->sortable()
+            //     ->searchable(),
 
             Column::action('Action')
         ];
@@ -114,8 +120,8 @@ final class PenyewaanTable extends PowerGridComponent
 
     public function actions(Penyewaan $row): array
     {
-
         $actions = [];
+
         if (auth()->user()->can('update')) {
             $actions[] =
                 Button::add('edit')

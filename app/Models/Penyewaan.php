@@ -28,6 +28,7 @@ class Penyewaan extends Model
         'user_id',
         'tanggal_penyewaan',
         'durasi_sewa',
+        'kembali'
     ];
 
     protected $dates = ['tanggal_penyewaan'];

@@ -17,7 +17,7 @@ class PenyewaanForm extends ModalComponent
     use Toastable;
 
     public Penyewaan $penyewaan;
-    public $id, $pelanggan_id, $mobil_id, $user_id, $username, $tanggal_penyewaan, $durasi_sewa, $mobils, $pelanggans;
+    public $id, $pelanggan_id, $mobil_id, $user_id, $username, $tanggal_penyewaan, $durasi_sewa, $kembali, $mobils, $pelanggans;
     public $hargaSewaMobil = 0;
     public $jumlahPembayaran = 0;
 
@@ -33,6 +33,7 @@ class PenyewaanForm extends ModalComponent
         $this->username = $rowId ? $this->penyewaan->user->name : auth()->user()->name;
         $this->tanggal_penyewaan = $this->penyewaan->tanggal_penyewaan;
         $this->durasi_sewa = $this->penyewaan->durasi_sewa;
+        $this->kembali = $this->penyewaan->kembali ?? false;
 
         if ($this->mobil_id) {
             $this->getHargaSewa($this->mobil_id);
@@ -52,12 +53,13 @@ class PenyewaanForm extends ModalComponent
             'user_id' => 'required|exists:users,id',
             'tanggal_penyewaan' => 'required',
             'durasi_sewa' => 'required',
+            'kembali' => 'required',
         ];
     }
 
     public function resetForm()
     {
-        $this->reset(['pelanggan_id', 'mobil_id', 'user_id', 'tanggal_penyewaan', 'durasi_sewa']);
+        $this->reset(['pelanggan_id', 'mobil_id', 'user_id', 'tanggal_penyewaan', 'durasi_sewa', 'kembali']);
     }
 
     public function store()
