@@ -34,6 +34,16 @@
                 <td class="border px-4 py-2">Rp {{ number_format($row->mobil->harga, 2, ',', '.') }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Status Pengembalian</td>
+                <td class="border px-4 py-2">
+                    @if (!$row->kembali)
+                        <div class="badge badge-error text-white text-base">Belum Dikembalikan</div>
+                    @else
+                        <div class="badge badge-success text-white">Sudah Dikembalikan</div>
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Foto Mobil</td>
                 <td class="border px-4 py-2">
                     <img src="{{ asset('storage/foto-mobil/' . $row->mobil->foto) }}" alt="{{ $row->mobil->nama }}"

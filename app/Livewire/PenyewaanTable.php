@@ -80,6 +80,7 @@ final class PenyewaanTable extends PowerGridComponent
 
     public function columns(): array
     {
+        $canEdit = true;
         return [
             Column::make('Id', 'id'),
             Column::make('Nama Pelanggan', 'nama_pelanggan'),
@@ -91,16 +92,34 @@ final class PenyewaanTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Status Kembali', 'status_kembali')
-                ->sortable()
-                ->searchable(),
+            // Column::make('Status Kembali', 'status_kembali')
+            //     ->sortable()
+            //     ->searchable(),
 
             // Column::make('Created at', 'created_at')
             //     ->sortable()
             //     ->searchable(),
 
+            Column::add()
+                ->title('Status Kembali')
+                ->field('kembali')
+                ->toggleable($canEdit, 'yes', 'no'),
+
             Column::action('Action')
         ];
+    }
+
+    public function onUpdatedToggleable($id, $field, $value): void
+    {
+        $penyewaan = Penyewaan::query()->find($id);
+        $penyewaan->update([
+            $field => $value,
+        ]);
+
+        // Update status mobil
+        $mobil = $penyewaan->mobil;
+        $mobil->status = $value ? 'Tersedia' : 'Disewa';
+        $mobil->save();
     }
 
     public function filters(): array
