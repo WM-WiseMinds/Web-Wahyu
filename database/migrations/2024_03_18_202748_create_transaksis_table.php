@@ -20,10 +20,6 @@ return new class extends Migration
             $table->integer('jumlah_pembayaran');
             // Atribut keterangan
             $table->text('keterangan');
-            // Atribut status
-            $table->enum('status', ['Belum Dibayar', 'Menunggu Verifikasi', 'Dikonfirmasi', 'Ditolak']);
-            // // Atribut bukti_pembayaran
-            // $table->string('bukti_pembayaran', 255)->nullable();
             // Atribut timestamp created_at dan updated_at
             $table->timestamps();
         });

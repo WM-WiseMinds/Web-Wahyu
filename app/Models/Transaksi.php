@@ -25,7 +25,6 @@ class Transaksi extends Model
         'penyewaan_id',
         'jumlah_pembayaran',
         'keterangan',
-
     ];
 
     /**

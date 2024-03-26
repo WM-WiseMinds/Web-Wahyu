@@ -14,10 +14,6 @@
                 <td class="border px-4 py-2">{{ $row->keterangan }}</td>
             </tr>
             <tr>
-                <td class="border px-4 py-2 text-sm font-semibold">Status</td>
-                <td class="border px-4 py-2">{{ $row->status }}</td>
-            </tr>
-            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Created At</td>
                 <td class="border px-4 py-2">{{ $row->created_at }}</td>
             </tr>
