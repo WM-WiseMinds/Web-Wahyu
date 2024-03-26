@@ -21,14 +21,14 @@ class PenyewaanForm extends ModalComponent
     public $hargaSewaMobil = 0;
     public $jumlahPembayaran = 0;
 
-    public function mount($rowId = null)
+    public function mount($rowId = null, $mobil_id = null)
     {
         $this->mobils = $rowId ? Mobil::all() : Mobil::query()->where('status', 'Tersedia')->get();
         $this->pelanggans = Pelanggan::all();
         $this->penyewaan = Penyewaan::findOrNew($rowId);
         $this->id = $this->penyewaan->id;
         $this->pelanggan_id = $this->penyewaan->pelanggan_id;
-        $this->mobil_id = $this->penyewaan->mobil_id;
+        $this->mobil_id = $mobil_id ?? $this->penyewaan->mobil_id;
         $this->user_id = $rowId ? $this->penyewaan->user_id : auth()->id();
         $this->username = $rowId ? $this->penyewaan->user->name : auth()->user()->name;
         $this->tanggal_penyewaan = $this->penyewaan->tanggal_penyewaan;
@@ -38,6 +38,8 @@ class PenyewaanForm extends ModalComponent
         if ($this->mobil_id) {
             $this->getHargaSewa($this->mobil_id);
         }
+
+        dump($this->mobil_id);
     }
 
     public function render()

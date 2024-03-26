@@ -4,61 +4,51 @@
     @endphp
     <div class="flex flex-col min-h-screen" x-data>
         @livewire('navbar')
+
         <div class="flex-grow">
+            <div class="container mx-auto my-10">
+                <h1 class="text-center text-4xl font-bold mb-10">Detail Mobil</h1>
 
-            <div class="text-xl">
-                <h1 class="text-center text-4xl font-bold mt-10">Detail Mobil</h1>
-            </div>
-
-            <div class="flex justify-center my-5 flex-wrap">
-                {{-- {{ dump($barang) }} --}}
-                <div class="hero h-[50vh] bg-white">
-                    <div class="hero-content flex-col lg:flex-row">
-                        <img src="{{ asset('storage/' . $barang->gambar) }}"
-                            class="max-w-sm rounded-lg shadow-2xl h-96" />
-                        <div>
-                            <h1 class="text-5xl font-bold">{{ $barang->nama_barang }}</h1>
-                            <p class="py-6">{{ $barang->keterangan }}</p>
-                            <button class="btn btn-primary"
-                                onclick="Livewire.dispatch('openModal', { component: 'keranjang-form', arguments: { barang_id: {{ $barang->id }} } })"">Beli
-                                Sekarang</button>
-                        </div>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <img src="{{ asset('storage/foto-mobil/' . $mobil->foto) }}" alt="{{ $mobil->nama }}"
+                            class="w-96 h-96 object-cover rounded-lg shadow-lg">
                     </div>
-                </div>
+                    <div class="w-full md:w-1/2">
+                        <h2 class="text-3xl font-bold mb-4">{{ $mobil->nama }}</h2>
+                        <p class="text-gray-600 mb-4">{{ $mobil->keterangan }}</p>
 
-            </div>
-            <div class="text-xl">
-                <h1 class="text-center text-4xl font-bold mt-10">Ukuran Produk</h1>
-            </div>
-            <div class="flex justify-center my-5 flex-wrap">
+                        <div class="mb-4">
+                            <span class="font-bold">Merk:</span> {{ $mobil->merk }}
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Warna:</span> {{ $mobil->warna }}
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Tahun:</span> {{ $mobil->tahun }}
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Plat Nomor:</span> {{ $mobil->plat_nomor }}
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Harga Sewa:</span> {{ $mobil->harga }}
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Status:</span> {{ $mobil->status }}
+                        </div>
+                        <div class="mb-4">
+                            <span class="font-bold">Kapasitas Penumpang:</span> {{ $mobil->kapasitas_penumpang }}
+                        </div>
 
-                <div class="overflow-x-auto w-full mx-10 my-5">
-                    <table class="table table-zebra border-2">
-                        <!-- head -->
-                        <thead class="border-2 text-base">
-                            <tr>
-                                <th>No </th>
-                                <th>Ukuran</th>
-                                <th>Deskripsi</th>
-                                <th>Harga</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($barang->ukuran as $item)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->ukuran }}</td>
-                                    <td class="border px-4 py-2">{{ $item->panjang }} cm x
-                                        {{ $item->lebar }} cm x
-                                        {{ $item->tinggi }} cm</td>
-                                    <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                        <button class="btn btn-primary"
+                            onclick="Livewire.dispatch('openModal', { component: 'penyewaan-form', arguments: { mobil_id: {{ $mobil->id }} } })">
+                            Sewa Sekarang
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
         @livewire('footer')
     </div>
 </x-guest-layout>
