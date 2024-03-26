@@ -27,7 +27,13 @@ class PenyewaanForm extends ModalComponent
         $this->pelanggans = Pelanggan::all();
         $this->penyewaan = Penyewaan::findOrNew($rowId);
         $this->id = $this->penyewaan->id;
-        $this->pelanggan_id = $this->penyewaan->pelanggan_id;
+        if ($rowId) {
+            $this->pelanggan_id = $this->penyewaan->pelanggan_id;
+        } else {
+            $userId = auth()->id();
+            $pelanggan = Pelanggan::where('user_id', $userId)->first();
+            $this->pelanggan_id = $pelanggan ? $pelanggan->id : null;
+        }
         $this->mobil_id = $mobil_id ?? $this->penyewaan->mobil_id;
         $this->user_id = $rowId ? $this->penyewaan->user_id : auth()->id();
         $this->username = $rowId ? $this->penyewaan->user->name : auth()->user()->name;

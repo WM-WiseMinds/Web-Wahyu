@@ -15,8 +15,8 @@
                                 alt="{{ $item->nama_mobil }}" />
                         </figure>
                         <div class="card-body">
-                            <h2 class="card-title">{{ $item->nama_mobil }}</h2>
-                            <p>{{ $item->keterangan }}</p>
+                            <h2 class="card-title">{{ $item->nama }}</h2>
+                            <p>{{ $item->merk }}</p>
                             <div class="card-actions justify-end">
                                 <a class="btn btn-primary"
                                     href="{{ route('detail-mobil', ['id' => $item->id]) }}">Detail</a>
