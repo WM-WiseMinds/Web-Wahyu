@@ -25,10 +25,15 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $pelangganCount = Pelanggan::count();
-        $mobilCount = Mobil::count();
-        $penyewaanCount = Penyewaan::count();
-        return view('dashboard', compact('pelangganCount', 'mobilCount', 'penyewaanCount'));
+
+        if (Gate::allows('viewAny', User::class)) {
+            $pelangganCount = Pelanggan::count();
+            $mobilCount = Mobil::count();
+            $penyewaanCount = Penyewaan::count();
+            return view('dashboard', compact('pelangganCount', 'mobilCount', 'penyewaanCount'));
+        } else {
+            return view('welcome');
+        }
     })->name('dashboard');
 
     Route::get('/permissions', function () {
