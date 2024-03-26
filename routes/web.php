@@ -9,6 +9,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/mobils', function () {
+    $mobil = Mobil::query()->where('status', 'Tersedia')->get();
+    return view('mobils', compact('mobil'));
+})->name('mobils');
+
+Route::get('/detail-mobil/{id}', function ($id) {
+    $mobil = mobil::findOrFail($id);
+    return view('detail-mobil', compact('mobil'));
+})->name('detail-mobil');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
