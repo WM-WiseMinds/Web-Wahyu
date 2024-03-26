@@ -63,9 +63,10 @@ final class TransaksiTable extends PowerGridComponent
             ->add('penyewaan_id')
             ->add('nama_pelanggan', fn ($row) => $row->penyewaan->pelanggan->user->name)
             ->add('nama_mobil', fn ($row) => $row->penyewaan->mobil->nama)
+            ->add('harga_sewa', fn ($row) => 'Rp ' . number_format($row->penyewaan->mobil->harga, 2, ',', '.'))
+            ->add('durasi_sewa', fn ($row) => $row->penyewaan->durasi_sewa . ' hari')
             ->add('jumlah_pembayaran', fn ($row) => 'Rp ' . number_format($row->jumlah_pembayaran, 2, ',', '.'))
             ->add('keterangan')
-            ->add('bukti_pembayaran')
             ->add('created_at');
     }
 

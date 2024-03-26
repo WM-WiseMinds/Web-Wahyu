@@ -10,6 +10,22 @@
                 <td class="border px-4 py-2">{{ $row->nama_pelanggan }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Nama Mobil</td>
+                <td class="border px-4 py-2">{{ $row->nama_mobil }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Harga Sewa</td>
+                <td class="border px-4 py-2">{{ $row->harga_sewa }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Durasi Sewa</td>
+                <td class="border px-4 py-2">{{ $row->durasi_sewa }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Jumlah Pembayaran</td>
+                <td class="border px-4 py-2">{{ $row->jumlah_pembayaran }}</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Keterangan</td>
                 <td class="border px-4 py-2">{{ $row->keterangan }}</td>
             </tr>
