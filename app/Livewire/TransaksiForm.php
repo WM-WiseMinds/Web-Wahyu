@@ -36,7 +36,7 @@ class TransaksiForm extends ModalComponent
             $this->bukti_pembayaran_url = Storage::disk('public')->url('foto-transaksi/' . $this->bukti_pembayaran);
         }
 
-        dump($this->history_transaksi_id);
+        // dump($this->history_transaksi_id);
     }
 
     public function switchToStatusOnlyMode()

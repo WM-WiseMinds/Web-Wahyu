@@ -200,7 +200,7 @@ final class PenyewaanTable extends PowerGridComponent
     public function delete($rowId)
     {
         $penyewaan = Penyewaan::findOrFail($rowId);
-
+        $penyewaan->mobil->update(['status' => 'Tersedia']);
         $penyewaan->delete();
 
         $this->success('Penyewaan berhasil dihapus');
