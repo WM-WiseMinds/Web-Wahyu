@@ -66,7 +66,7 @@
                     @enderror
                 </div>
             </div>
-            @if ($id)
+            {{-- @if ($id)
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Kembali</label>
                     <div class="flex items-center">
@@ -80,7 +80,7 @@
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </div>
-            @endif
+            @endif --}}
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">

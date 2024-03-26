@@ -10,8 +10,21 @@
                 <td class="border px-4 py-2">{{ $row->pelanggan->user->name }}</td>
             </tr>
             <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Alamat Penyewa</td>
+                <td class="border px-4 py-2">{{ $row->pelanggan->alamat }}</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">No HP Penyewa</td>
+                <td class="border px-4 py-2">{{ $row->pelanggan->no_hp }}</td>
+            </tr>
+            <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Nama Mobil</td>
                 <td class="border px-4 py-2">{{ $row->mobil->nama }}</td>
+            </tr>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2 text-sm font-semibold">Merk Mobil</td>
+                <td class="border px-4 py-2">{{ $row->mobil->merk }}</td>
             </tr>
             <tr>
                 <td class="border px-4 py-2 text-sm font-semibold">Plat Nomor</td>

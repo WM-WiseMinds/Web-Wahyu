@@ -122,8 +122,11 @@ class PenyewaanForm extends ModalComponent
         ]);
 
         $this->success($this->penyewaan->wasRecentlyCreated ? 'Penyewaan berhasil disimpan' : 'Penyewaan berhasil diubah');
+        $this->success($this->penyewaan->wasRecentlyCreated ? 'Transaksi berhasil disimpan' : 'Transaksi berhasil diubah');
 
         $this->resetForm();
+
+        return redirect()->route('transaksi');
     }
 
     public function getHargaSewa($mobilId)
