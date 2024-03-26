@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Mobil;
+use App\Models\Pelanggan;
+use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,7 +15,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $pelangganCount = Pelanggan::count();
+        $mobilCount = Mobil::count();
+        $penyewaanCount = Penyewaan::count();
+        return view('dashboard', compact('pelangganCount', 'mobilCount', 'penyewaanCount'));
     })->name('dashboard');
 
     Route::get('/permissions', function () {
