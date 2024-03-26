@@ -1,5 +1,5 @@
 <div>
-    <footer class="footer footer-center p-10 bg-gradient-to-t from-orange-700 to-orange-600 text-base-content rounded">
+    <footer class="footer footer-center p-10 bg-gradient-to-t from-emerald-800 to-green-700 text-base-content rounded">
         <nav class="grid grid-flow-col gap-4 text-white">
             <a class="link link-hover" href="{{ url('/') }}">Beranda</a>
             <a class="link link-hover" href="{{ url('/mobils') }}">Mobil</a>
